@@ -24,7 +24,7 @@ std::string infx2pstfx(const std::string& inf) {
     char c = inf[i];
     if (c == ' ') continue;
     if (isDigit(c)) {
-      while (i < inf.size() && isDigit(c)) {
+      while (i < inf.size() && isDigit(inf[i])) {
         result += inf[i];
         i++;
       }
@@ -37,9 +37,12 @@ std::string infx2pstfx(const std::string& inf) {
         result += stack.pop();
         result += ' ';
       }
-      if (!stack.isEmpty()) stack.pop();
+      if (!stack.isEmpty()) {
+        stack.pop();
+      }
     } else if (isOperator(c)) {
-      while (!stack.isEmpty() && priorityCheck(stack.top()) >= priorityCheck(c)) {
+      while (!stack.isEmpty() &&
+       priorityCheck(stack.top()) >= priorityCheck(c)) {
         result += stack.pop();
         result += ' ';
       }
@@ -48,15 +51,15 @@ std::string infx2pstfx(const std::string& inf) {
   }
   while (!stack.isEmpty()) {
     char oper = stack.pop();
-    if (oper != '(' && oper != ')')
+    if (oper != '(' && oper != ')') {
       result += oper;
       result += ' ';
     }
   }
-  if (result.empty()) {
-  return result.pop_back();
+  if (!result.empty()) {
+    result.pop_back();
   }
-  return result
+  return result;
 }
 
 int eval(const std::string& pref) {
@@ -66,7 +69,7 @@ int eval(const std::string& pref) {
     if (c == ' ') continue;
     if (isDigit(c)) {
       int number = 0;
-      while ((i < pref.size()) && isDigit(c)) {
+      while ((i < pref.size()) && isDigit(pref[i])) {
         number = number * 10 + (pref[i] - '0');
         i++;
       }
@@ -81,5 +84,5 @@ int eval(const std::string& pref) {
       else if (c == '/') stack.push(preLast / last);
     }
   }
-  return stack.top();
+  return stack.pop();
 }
