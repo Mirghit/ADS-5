@@ -9,7 +9,7 @@ class TStack {
     int topIndex;
 
   public:
-    TStack () : topIndex(-1) {}
+    TStack() : topIndex(-1) {}
 
     void push(T value) {
       arr[++topIndex] = value;
