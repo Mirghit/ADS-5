@@ -13,7 +13,7 @@ class TStack {
   TStack() : topIndex(-1) {}
 
   void push(T value) {
-    if (topIndex < ksize - 1) {
+    if (topIndex < kSize - 1) {
       arr[++topIndex] = value;
     }
   }
